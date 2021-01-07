@@ -15,14 +15,13 @@
             <artifactId>cas-server-support-jdbc</artifactId>
             <version>${cas.version}</version>
         </dependency>
-        <!--  CAS依赖结束  -->
-
-        <!--   jdbc驱动   -->
+        <!--   jdbc驱动 支持几种常见的数据库 https://apereo.github.io/cas/5.3.x/installation/JDBC-Drivers.html#jdbc-drivers   -->
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.200</version>
+            <groupId>org.apereo.cas</groupId>
+            <artifactId>cas-server-support-jdbc-drivers</artifactId>
+            <version>${cas.version}</version>
         </dependency>
+        <!--  CAS依赖结束  -->
     </dependencies>
 
     <build>
