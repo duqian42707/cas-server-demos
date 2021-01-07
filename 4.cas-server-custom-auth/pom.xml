@@ -17,7 +17,7 @@
         </dependency>
         <dependency>
             <groupId>org.apereo.cas</groupId>
-            <artifactId>cas-server-core-webflow</artifactId>
+            <artifactId>cas-server-core-webflow-api</artifactId>
             <version>${cas.version}</version>
         </dependency>
         <!--  CAS依赖结束  -->
