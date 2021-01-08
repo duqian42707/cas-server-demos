@@ -1,0 +1,31 @@
+<h1>
+    hello world! <a href="logout">logout</a>
+</h1>
+
+<a href="http://localhost:8081/">客户端1</a>
+<a href="http://localhost:8082/">客户端2</a>
+
+
+<div th:if="${attributes!=null}">
+    <div th:if="${attributes.size()>0}">
+
+        <b>Attributes:</b>
+        <hr>
+        <table border='3pt' width='100%'>
+            <th colspan='2'>Attributes</th>
+            <tr>
+                <td><b>Key</b></td>
+                <td><b>Value</b></td>
+            </tr>
+            <tr th:each="attribute,stat : ${attributes}">
+                <td th:text="${attribute.key}"></td>
+                <td th:text="${attribute.value}"></td>
+            </tr>
+        </table>
+    </div>
+    <pre th:if="${attributes.size()==0}">The attribute map is empty. Review your CAS filter configurations.</pre>
+</div>
+
+<p th:if="${attributes==null}">No attributes are supplied by the CAS server.</p>
+
+<pre th:if="${principal==null}">The user principal is empty from the request object. Review the wrapper filter configuration.</pre>
