@@ -1,9 +1,0 @@
-{
-  "@class" : "org.apereo.cas.services.RegexRegisteredService",
-  "serviceId" : "^http://localhost:8081",
-  "name" : "Client1",
-  "theme" : "theme1",
-  "id" : 1,
-  "description" : "客户端1",
-  "evaluationOrder" : 1
-}
