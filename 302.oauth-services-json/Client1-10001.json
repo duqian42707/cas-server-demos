@@ -1,0 +1,8 @@
+{
+  "@class" : "org.apereo.cas.support.oauth.services.OAuthRegisteredService",
+  "clientId": "client1",
+  "clientSecret": "12345678",
+  "serviceId" : "^(https://www.baidu.com).*",
+  "name" : "OAuthClient1",
+  "id" : 10001
+}
