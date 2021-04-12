@@ -4,61 +4,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd ">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.dqv5.cas</groupId>
-    <artifactId>cas-management</artifactId>
+    <artifactId>cas-server-service-manage-jpa</artifactId>
+    <version>1.0.0</version>
     <packaging>war</packaging>
-    <version>1.0</version>
-
-
-    <properties>
-        <cas-mgmt.version>5.3.6</cas-mgmt.version>
-        <cas.version>5.3.5</cas.version>
-        <springboot.version>1.5.14.RELEASE</springboot.version>
-        <mainClassName>org.springframework.boot.loader.WarLauncher</mainClassName>
-        <isExecutable>false</isExecutable>
-        <manifestFileToUse>
-            ${project.build.directory}/war/work/org.apereo.cas/cas-management-webapp/META-INF/MANIFEST.MF
-        </manifestFileToUse>
-
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 
     <dependencies>
-        <!--  CAS Management  -->
-        <dependency>
-            <groupId>org.apereo.cas</groupId>
-            <artifactId>cas-management-webapp</artifactId>
-            <version>${cas-mgmt.version}</version>
-            <type>war</type>
-        </dependency>
-        <!--  CAS 通过jpa管理服务  -->
+        <!--  CAS依赖开始  -->
         <dependency>
             <groupId>org.apereo.cas</groupId>
             <artifactId>cas-server-support-jpa-service-registry</artifactId>
             <version>${cas.version}</version>
-            <!--  避免jar包冲突  -->
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework.data</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
-        <!--   数据库连接   -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.23</version>
+            <groupId>org.apereo.cas</groupId>
+            <artifactId>cas-server-support-jdbc-drivers</artifactId>
+            <version>${cas.version}</version>
         </dependency>
+        <!--  CAS依赖结束  -->
     </dependencies>
 
     <build>
@@ -66,10 +28,10 @@
             <plugin>
                 <groupId>com.rimerosolutions.maven.plugins</groupId>
                 <artifactId>wrapper-maven-plugin</artifactId>
-                <version>0.0.4</version>
+                <version>0.0.5</version>
                 <configuration>
-<!--                    <verifyDownload>true</verifyDownload>-->
-<!--                    <checksumAlgorithm>MD5</checksumAlgorithm>-->
+                    <verifyDownload>true</verifyDownload>
+                    <checksumAlgorithm>MD5</checksumAlgorithm>
                 </configuration>
             </plugin>
             <plugin>
@@ -95,7 +57,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
-                    <warName>cas-management</warName>
+                    <warName>cas</warName>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <recompressZippedFiles>false</recompressZippedFiles>
                     <archive>
@@ -105,7 +67,7 @@
                     <overlays>
                         <overlay>
                             <groupId>org.apereo.cas</groupId>
-                            <artifactId>cas-management-webapp</artifactId>
+                            <artifactId>cas-server-webapp${app.server}</artifactId>
                         </overlay>
                     </overlays>
                 </configuration>
@@ -116,8 +78,25 @@
                 <version>3.3</version>
             </plugin>
         </plugins>
-        <finalName>cas-management</finalName>
+        <finalName>cas</finalName>
     </build>
+
+    <properties>
+        <cas.version>5.3.16</cas.version>
+        <springboot.version>1.5.18.RELEASE</springboot.version>
+        <!-- app.server could be -jetty, -undertow, -tomcat, or blank if you plan to provide appserver -->
+        <app.server>-tomcat</app.server>
+
+        <mainClassName>org.springframework.boot.loader.WarLauncher</mainClassName>
+        <isExecutable>false</isExecutable>
+        <manifestFileToUse>
+            ${project.build.directory}/war/work/org.apereo.cas/cas-server-webapp${app.server}/META-INF/MANIFEST.MF
+        </manifestFileToUse>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <repositories>
         <repository>
@@ -151,9 +130,28 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <id>default</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-webapp${app.server}</artifactId>
+                    <version>${cas.version}</version>
+                    <type>war</type>
+                    <scope>runtime</scope>
+                </dependency>
+                <!--
+                ...Additional dependencies may be placed here...
+                -->
+            </dependencies>
+        </profile>
+
+        <profile>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
             <id>exec</id>
             <properties>
-                <mainClassName>org.apereo.cas.mgmt.web.CasManagementWebApplication</mainClassName>
+                <mainClassName>org.apereo.cas.web.CasWebApplication</mainClassName>
                 <isExecutable>true</isExecutable>
                 <manifestFileToUse></manifestFileToUse>
             </properties>
@@ -173,13 +171,32 @@
                         </executions>
                         <configuration>
                             <echos>
-                                <echo>Executable profile to make the generated CAS management application executable.
-                                </echo>
+                                <echo>Executable profile to make the generated CAS web application executable.</echo>
                             </echos>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+
+        <profile>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <id>bootiful</id>
+            <properties>
+                <app.server>-tomcat</app.server>
+                <isExecutable>false</isExecutable>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apereo.cas</groupId>
+                    <artifactId>cas-server-webapp${app.server}</artifactId>
+                    <version>${cas.version}</version>
+                    <type>war</type>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
         </profile>
 
         <profile>
