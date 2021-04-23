@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd ">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.dqv5.cas</groupId>
-    <artifactId>cas-server-rest</artifactId>
+    <artifactId>cas-server-jdbc-auth</artifactId>
     <version>1.0.0</version>
     <packaging>war</packaging>
 
@@ -12,7 +12,13 @@
         <!--  CAS依赖开始  -->
         <dependency>
             <groupId>org.apereo.cas</groupId>
-            <artifactId>cas-server-support-rest-authentication</artifactId>
+            <artifactId>cas-server-support-jdbc</artifactId>
+            <version>${cas.version}</version>
+        </dependency>
+        <!--   jdbc驱动 支持几种常见的数据库 https://apereo.github.io/cas/5.3.x/installation/JDBC-Drivers.html#jdbc-drivers   -->
+        <dependency>
+            <groupId>org.apereo.cas</groupId>
+            <artifactId>cas-server-support-jdbc-drivers</artifactId>
             <version>${cas.version}</version>
         </dependency>
         <!--  CAS依赖结束  -->
