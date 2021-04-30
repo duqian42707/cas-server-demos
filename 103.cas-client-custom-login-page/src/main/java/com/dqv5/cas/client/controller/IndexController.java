@@ -4,19 +4,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -43,7 +39,7 @@ public class IndexController {
      * @throws UnsupportedEncodingException
      */
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String username, @RequestParam String password, String service) throws UnsupportedEncodingException {
+    public String login(@RequestParam String username, @RequestParam String password, String service) throws UnsupportedEncodingException {
         String api = casServerUrl + "/v1/tickets";
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
         map.add("username", username);
@@ -56,7 +52,8 @@ public class IndexController {
         if (!StringUtils.isEmpty(service)) {
             url += "&service=" + URLEncoder.encode(service, "UTF-8");
         }
-        return ResponseEntity.ok(url);
+        return "redirect:" + url;
     }
+
 
 }
