@@ -6,13 +6,44 @@
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge，chrome=1">
   <title>测试页面</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+  <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
 </head>
 <body>
-<form method="post" action="/login">
-  <input name="username" placeholder="用户名"/>
-  <input name="password" placeholder="密码" type="password"/>
-  <input name="service" placeholder="服务地址"/>
-  <button type="submit">登录</button>
-</form>
+<div id="app">
+  <input v-model="username" placeholder="用户名"/>
+  <input v-model="password" placeholder="密码" type="password"/>
+  <input v-model="service" placeholder="服务地址"/>
+  <button @click="login()">登录</button>
+</div>
 </body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            username: '',
+            password: '',
+            service: ''
+        },
+        methods: {
+            /**
+             * 调用自己写的登录接口，登录成功后返回一个地址，重定向到该地址即可
+             */
+            login() {
+                const data = new FormData();
+                data.set('username', this.username);
+                data.set('password', this.password);
+                data.set('service', this.service);
+                axios({
+                    url: '/login',
+                    method: 'post',
+                    data: data
+                }).then(res => {
+                    window.location.href = res.data;
+                })
+            }
+        }
+    });
+</script>
+
 </html>
