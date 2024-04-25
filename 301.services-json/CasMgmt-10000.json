@@ -1,9 +1,0 @@
-{
-  "@class" : "org.apereo.cas.services.RegexRegisteredService",
-  "serviceId" : "^(http://localhost:8080/cas-management).*",
-  "name" : "CasMgmt",
-  "theme" : "theme",
-  "id" : 10000,
-  "description" : "CAS服务管理程序.",
-  "evaluationOrder" : 10000
-}
