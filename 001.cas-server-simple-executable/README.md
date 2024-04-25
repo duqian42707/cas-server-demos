@@ -75,9 +75,8 @@ On a successful deployment via the following methods, the server will be availab
 
 Run the server web application as an executable WAR. Note that running an executable WAR requires CAS to use an embedded container such as Apache Tomcat, Jetty, etc.
 
+The current servlet container is specified as `-tomcat`.
 
-No servlet container is specified for the current build. Examine your `gradle.properties` file
-and modify the `appServer` property to point to the appropriate container of choice.
 ```bash
 java -jar build/libs/cas.war
 ```

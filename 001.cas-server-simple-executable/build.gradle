@@ -8,13 +8,13 @@ import static org.gradle.internal.logging.text.StyledTextOutput.Style
 buildscript {
     repositories {
         if (project.privateRepoUrl) {
-            maven {
-                url project.privateRepoUrl
-                credentials {
-                    username = project.privateRepoUsername
-                    password = System.env.PRIVATE_REPO_TOKEN
-                }
+          maven {
+            url project.privateRepoUrl
+            credentials {
+              username = project.privateRepoUsername
+              password = System.env.PRIVATE_REPO_TOKEN
             }
+          }
         }
         mavenLocal()
         mavenCentral()
@@ -42,13 +42,13 @@ buildscript {
 
 repositories {
     if (project.privateRepoUrl) {
-        maven {
-            url project.privateRepoUrl
-            credentials {
-                username = project.privateRepoUsername
-                password = System.env.PRIVATE_REPO_TOKEN
-            }
+      maven {
+        url project.privateRepoUrl
+        credentials {
+          username = project.privateRepoUsername
+          password = System.env.PRIVATE_REPO_TOKEN
         }
+      }
     }
     mavenLocal()
     mavenCentral()
@@ -101,7 +101,7 @@ configurations {
             if (project.hasProperty("tomcatVersion")) {
                 eachDependency { DependencyResolveDetails dependency ->
                     def requested = dependency.requested
-                    if (requested.group.startsWith("org.apache.tomcat") && requested.name != "jakartaee-migration") {
+                    if (requested.group.startsWith("org.apache.tomcat") && requested.name != "jakartaee-migration")  {
                         dependency.useVersion("${tomcatVersion}")
                     }
                 }
@@ -128,10 +128,12 @@ java {
 }
 
 
+
+
 dependencies {
     /**
-     * Do NOT modify the lines below or else you will risk breaking dependency management.
-     **/
+    * Do NOT modify the lines below or else you will risk breaking dependency management.
+    **/
     implementation enforcedPlatform("org.apereo.cas:cas-server-support-bom:${project.'cas.version'}")
     implementation platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
 
@@ -144,9 +146,9 @@ dependencies {
     if (project.hasProperty("appServer")) {
         implementation "org.apereo.cas:cas-server-webapp-init${project.appServer}"
     }
-
+    
     developmentOnly "org.springframework.boot:spring-boot-devtools:${project.springBootVersion}"
-
+        
     /**
      * CAS dependencies and modules may be listed here.
      *
@@ -155,7 +157,7 @@ dependencies {
      * plugin via the CAS bom.
      **/
 
-
+    
     testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 

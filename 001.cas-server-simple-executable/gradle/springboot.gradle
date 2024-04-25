@@ -3,7 +3,7 @@ apply plugin: "java"
 sourceSets {
     bootRunSources {
         resources {
-            srcDirs new File("E:\\workspace_personal\\cas-server-demos-7.x\\001.cas-server-simple\\etc\\cas\\templates\\"), new File("${project.getProjectDir()}/src/main/resources/")
+            srcDirs new File("//etc/cas/templates/"), new File("${project.getProjectDir()}/src/main/resources/")
         }
     }
 }
@@ -11,7 +11,7 @@ sourceSets {
 configurations {
     bootRunConfig {
         extendsFrom compileClasspath
-
+        
         exclude(group: "org.springframework.boot", module: "spring-boot-starter-logging")
         exclude(group: "ch.qos.logback", module: "logback-core")
         exclude(group: "ch.qos.logback", module: "logback-classic")
@@ -36,7 +36,7 @@ dependencies {
     bootRunConfig "org.apereo.cas:cas-server-support-thymeleaf"
     bootRunConfig "org.apereo.cas:cas-server-support-validation"
     bootRunConfig "org.apereo.cas:cas-server-support-person-directory"
-
+    
     bootRunConfig "org.apereo.cas:cas-server-webapp-resources"
     bootRunConfig "org.apereo.cas:cas-server-webapp-init"
     bootRunConfig "org.apereo.cas:cas-server-webapp-tomcat"
@@ -80,56 +80,57 @@ bootRun {
 
 springBoot {
     mainClass = "org.apereo.cas.web.CasWebApplication"
-
-
+    
+    
 }
 
-bootWar {
-    def executable = project.hasProperty("executable") && Boolean.valueOf(project.getProperty("executable"))
-    if (executable) {
-        logger.info "Including launch script for executable WAR artifact"
-        launchScript()
-    } else {
-        logger.info "WAR artifact is not marked as an executable"
-    }
+    bootWar {
+        def executable = project.hasProperty("executable") && Boolean.valueOf(project.getProperty("executable"))
+        if (executable) {
+            logger.info "Including launch script for executable WAR artifact"
+            launchScript()
+        } else {
+            logger.info "WAR artifact is not marked as an executable"
+        }
+    
+        archiveFileName = "cas.war"
+        archiveBaseName = "cas"
 
-    archiveFileName = "cas.war"
-    archiveBaseName = "cas"
+        entryCompression = ZipEntryCompression.STORED
 
-    entryCompression = ZipEntryCompression.STORED
-
-    /*
-        attachClasses = true
-        classesClassifier = 'classes'
-        archiveClasses = true
-    */
-
-    overlays {
         /*
-            https://docs.freefair.io/gradle-plugins/current/reference/#_io_freefair_war_overlay
-            Note: The "excludes" property is only for files in the war dependency.
-            If a jar is excluded from the war, it could be brought back into the final war as a dependency
-            of non-war dependencies. Those should be excluded via normal gradle dependency exclusions.
+            attachClasses = true
+            classesClassifier = 'classes'
+            archiveClasses = true
         */
-        cas {
-            from "org.apereo.cas:cas-server-webapp${project.appServer}:${project.'cas.version'}@war"
 
-
-            provided = false
-
-            def excludeArtifacts = ["WEB-INF/lib/servlet-api-2*.jar"]
-            if (project.hasProperty("tomcatVersion")) {
-                excludes += ["WEB-INF/lib/tomcat-*.jar"]
-            }
-            excludes = excludeArtifacts
-
+        overlays {
             /*
-            excludes = ["WEB-INF/lib/somejar-1.0*"]
-            enableCompilation = true
-            includes = ["*.xyz"]
-            targetPath = "sub-path/bar"
-            skip = false
+                https://docs.freefair.io/gradle-plugins/current/reference/#_io_freefair_war_overlay
+                Note: The "excludes" property is only for files in the war dependency.
+                If a jar is excluded from the war, it could be brought back into the final war as a dependency
+                of non-war dependencies. Those should be excluded via normal gradle dependency exclusions.
             */
+            cas {
+                from "org.apereo.cas:cas-server-webapp${project.appServer}:${project.'cas.version'}@war"
+
+
+
+                provided = false
+
+                def excludeArtifacts = ["WEB-INF/lib/servlet-api-2*.jar"]
+                if (project.hasProperty("tomcatVersion")) {
+                    excludes += ["WEB-INF/lib/tomcat-*.jar"]
+                }
+                excludes = excludeArtifacts
+
+                /*
+                excludes = ["WEB-INF/lib/somejar-1.0*"]
+                enableCompilation = true
+                includes = ["*.xyz"]
+                targetPath = "sub-path/bar"
+                skip = false
+                */
+            }
         }
     }
-}
