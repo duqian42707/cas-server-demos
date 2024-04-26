@@ -173,7 +173,7 @@ task createKeystore(group: "CAS", description: "Create CAS keystore") {
 
 task unzipWAR(type: Copy, group: "CAS", description: "Explodes the CAS web application archive") {
     dependsOn 'build'
-    def destination = "${buildDir}/app"
+    def destination = "${buildDir}/libs/exploded/cas.war"
 
     from zipTree("build/libs/cas.war")
     into "${destination}"
@@ -268,7 +268,7 @@ task getResource(group: "CAS", description: "Fetch a CAS resource and move it in
         def resourceFile = results[0].canonicalPath
         def toResourceFile = new File("${projectDirectory}", resourceFile.replace(fromFile, resourcesDir))
         toResourceFile.getParentFile().mkdirs()
-     
+
         Files.copy(Paths.get(resourceFile), Paths.get(toResourceFile.absolutePath), StandardCopyOption.REPLACE_EXISTING)
         println "Copied file ${resourceFile} to ${toResourceFile}"
     }
@@ -365,7 +365,7 @@ task duct(group: "CAS", description: "Test ticket registry functionality via the
                     casServerPrefix2 = getCasServerNode()
                 }
             }
-            
+
             if (debug) {
                 out.withStyle(Style.Normal).println("CAS Server 1: ${casServerPrefix1}")
                 out.withStyle(Style.Normal).println("CAS Server 2: ${casServerPrefix2}")
@@ -377,7 +377,7 @@ task duct(group: "CAS", description: "Test ticket registry functionality via the
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
             connection.getOutputStream().write("username=${username}&password=${password}".getBytes("UTF-8"))
             def rc = connection.getResponseCode()
-            
+
             if (rc == 201) {
                 def tgt = connection.getHeaderFields().get("Location").get(0).find('TGT-.*')
 
@@ -391,7 +391,7 @@ task duct(group: "CAS", description: "Test ticket registry functionality via the
                 connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
                 connection.getOutputStream().write("service=${service}".getBytes("UTF-8"))
                 rc = connection.getResponseCode()
-                
+
                 if (rc == 200) {
                     def st = connection.getInputStream().getText()
                     if (debug) {
@@ -403,11 +403,11 @@ task duct(group: "CAS", description: "Test ticket registry functionality via the
                     connection.setDoOutput(true)
                     connection.setRequestProperty("Content-Type", "application/json")
                     rc = connection.getResponseCode()
-                    
+
                     if (rc == 200) {
                         def serverResponse = connection.getInputStream().getText()
                         def response = new JsonSlurper().parseText(serverResponse)
-                        
+
                         if (response.serviceResponse["authenticationSuccess"] != null) {
                             out.withStyle(Style.Success).println("Service ticket ${st} is successfully validated @ ${casServerPrefix1}")
                         } else {
