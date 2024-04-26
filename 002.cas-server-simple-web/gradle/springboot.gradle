@@ -3,7 +3,7 @@ apply plugin: "java"
 sourceSets {
     bootRunSources {
         resources {
-            srcDirs new File("//etc/cas/templates/"), new File("${project.getProjectDir()}/src/main/resources/")
+//            srcDirs new File("//etc/cas/templates/"), new File("${project.getProjectDir()}/src/main/resources/")
         }
     }
 }
@@ -11,7 +11,7 @@ sourceSets {
 configurations {
     bootRunConfig {
         extendsFrom compileClasspath
-        
+
         exclude(group: "org.springframework.boot", module: "spring-boot-starter-logging")
         exclude(group: "ch.qos.logback", module: "logback-core")
         exclude(group: "ch.qos.logback", module: "logback-classic")
@@ -36,7 +36,7 @@ dependencies {
     bootRunConfig "org.apereo.cas:cas-server-support-thymeleaf"
     bootRunConfig "org.apereo.cas:cas-server-support-validation"
     bootRunConfig "org.apereo.cas:cas-server-support-person-directory"
-    
+
     bootRunConfig "org.apereo.cas:cas-server-webapp-resources"
     bootRunConfig "org.apereo.cas:cas-server-webapp-init"
     bootRunConfig "org.apereo.cas:cas-server-webapp-tomcat"
@@ -80,8 +80,8 @@ bootRun {
 
 springBoot {
     mainClass = "org.apereo.cas.web.CasWebApplication"
-    
-    
+
+
 }
 
     bootWar {
@@ -92,7 +92,7 @@ springBoot {
         } else {
             logger.info "WAR artifact is not marked as an executable"
         }
-    
+
         archiveFileName = "cas.war"
         archiveBaseName = "cas"
 
