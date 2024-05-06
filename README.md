@@ -109,3 +109,21 @@ server:
 未知。。后来未复现
 
 ### 在 IDEA 中开发并启用热部署
+
+需要在`build.gradle`中`war`下面增加`overlays`的配置，否则无法以exploded方式在tomcat启动
+
+### 登录状态无法保持？
+
+1. 以https协议访问
+2. 若要以http协议访问，需关闭强制使用https
+
+application.yml配置：
+
+```yaml
+cas:
+  tgc:
+    # 关闭强制使用https，否则无法实现统一认证（或使用https）
+    secure: false
+    # secure设置为false，必须同时设置sameSite策略为Lax或Strict，否则cookie还是不会保存
+    same-site-policy: Lax
+```

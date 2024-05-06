@@ -1,0 +1,15 @@
+{
+  "@class": "org.apereo.cas.services.CasRegisteredService",
+  "serviceId": "^(http|https)://client2.demo.com:18002.*",
+  "name": "client2",
+  "id": 10000002,
+  "description": "The service client2.",
+  "evaluationOrder": 102,
+  "properties" : {
+    "@class" : "java.util.HashMap",
+    "wildcardedServiceDefinition" : {
+      "@class" : "org.apereo.cas.services.DefaultRegisteredServiceProperty",
+      "values" : [ "java.util.HashSet", [ "true" ] ]
+    }
+  }
+}

@@ -1,10 +1,11 @@
 # Application properties that need to be
 # embedded within the web application can be included here
 
-server:
-  port: 8080
-  ssl:
-    enabled: false
 cas:
   server:
     name: http://cas.example.org:8080/cas
+  tgc:
+    # 关闭强制使用https，否则无法实现统一认证（或使用https）
+    secure: false
+    # secure设置为false，必须同时设置sameSite策略为Lax或Strict，否则cookie还是不会保存
+    same-site-policy: Lax

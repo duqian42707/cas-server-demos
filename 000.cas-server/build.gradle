@@ -170,6 +170,7 @@ dependencies {
      * since versions are all resolved and controlled by the dependency management
      * plugin via the CAS bom.
      **/
+    implementation "org.apereo.cas:cas-server-support-json-service-registry"
 
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
