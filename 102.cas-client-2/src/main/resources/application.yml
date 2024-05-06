@@ -1,0 +1,9 @@
+server:
+  port: 18082
+spring:
+  application:
+    name: cas-client-2
+cas:
+  server-url-prefix: https://cas.example.org:8443/cas
+  server-login-url: https://cas.example.org:8443/cas/login
+  client-host-url: https://client2.demo.com:18082
