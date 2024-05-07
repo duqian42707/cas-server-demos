@@ -6,8 +6,8 @@ Set -Dlog4j2.contextSelector=org.apache.logging.log4j.core.selector.BasicContext
 <!-- Specify the refresh internal in seconds. -->
 <Configuration monitorInterval="5" packages="org.apereo.cas.logging">
     <Properties>
-        <Property name="baseDir">/var/log</Property>
-        <Property name="cas.log.level">info</Property>
+        <Property name="baseDir">${sys:catalina.home}/logs/caslogs</Property>
+        <Property name="cas.log.level">debug</Property>
         <Property name="spring.webflow.log.level">warn</Property>
         <Property name="spring.security.log.level">info</Property>
         <Property name="spring.cloud.log.level">warn</Property>
