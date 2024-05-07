@@ -20,6 +20,29 @@
 127.0.0.1  client2.demo.com
 ```
 
+## 数据库脚本
+
+```sql
+CREATE TABLE public.basic_user (
+  user_id int NULL,
+  username varchar(255) NULL,
+  nick_name varchar(255) NULL,
+  password varchar(255) NULL,
+  sex int NULL
+);
+
+COMMENT ON COLUMN public.basic_user.user_id IS '主键';
+COMMENT ON COLUMN public.basic_user.username IS '账号';
+COMMENT ON COLUMN public.basic_user.nick_name IS '昵称';
+COMMENT ON COLUMN public.basic_user.password IS '密码';
+COMMENT ON COLUMN public.basic_user.sex IS '性别';
+
+INSERT INTO public.basic_user  (user_id, username, nick_name, password, sex)
+VALUES(1, 'admin', '管理员', '111111', 1);
+INSERT INTO public.basic_user  (user_id, username, nick_name, password, sex)
+VALUES(2, 'zhangsan', '张三', '222222', 2);        
+```
+
 ## cas-server项目创建过程
 
 - 进入 [Apereo CAS Initializr](https://getcas.apereo.org/ui) 项目初始化工具网站

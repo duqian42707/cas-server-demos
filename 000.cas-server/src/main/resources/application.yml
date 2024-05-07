@@ -1,6 +1,13 @@
 # Application properties that need to be
 # embedded within the web application can be included here
 
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/cas
+    username: postgres
+    password: 123456
+
 cas:
   server:
     name: http://cas.example.org:8080/cas
@@ -9,3 +16,18 @@ cas:
     secure: false
     # secure设置为false，必须同时设置sameSite策略为Lax或Strict，否则cookie还是不会保存
     same-site-policy: Lax
+  authn:
+    # 关闭静态配置的账号
+    accept:
+      enabled: false
+    jdbc:
+      query[0]:
+        driver-class: ${spring.datasource.driver-class-name}
+        url: ${spring.datasource.url}
+        user: ${spring.datasource.username}
+        password: ${spring.datasource.password}
+        sql: select * from basic_user where username = ?
+        field-password: password
+        password-encoder:
+          encoding-algorithm:
+          type: NONE

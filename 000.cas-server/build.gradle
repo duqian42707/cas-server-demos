@@ -171,7 +171,8 @@ dependencies {
      * plugin via the CAS bom.
      **/
     implementation "org.apereo.cas:cas-server-support-json-service-registry"
-
+    implementation "org.apereo.cas:cas-server-support-jdbc"
+    implementation 'org.postgresql:postgresql'
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
