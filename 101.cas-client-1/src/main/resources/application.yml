@@ -4,8 +4,8 @@ spring:
   application:
     name: cas-client-1
 cas:
-  server-url-prefix: http://cas.example.org:8080/cas
-  server-login-url: http://cas.example.org:8080/cas/login
+  server-url-prefix: http://cas.demo.com:8080/cas
+  server-login-url: http://cas.demo.com:8080/cas/login
   client-host-url: http://client1.demo.com:18001
   single-logout:
     enabled: true

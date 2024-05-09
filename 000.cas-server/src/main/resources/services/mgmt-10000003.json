@@ -1,10 +1,10 @@
 {
   "@class": "org.apereo.cas.services.CasRegisteredService",
-  "serviceId": "^(http|https)://client2.demo.com.*",
-  "name": "client2",
-  "id": 10000002,
-  "description": "The service client2.",
-  "evaluationOrder": 102,
+  "serviceId": "^(http|https)://mgmt.demo.com.*",
+  "name": "mgmt",
+  "id": 10000003,
+  "description": "The Cas Management Webapp.",
+  "evaluationOrder": 103,
   "properties" : {
     "@class" : "java.util.HashMap",
     "wildcardedServiceDefinition" : {

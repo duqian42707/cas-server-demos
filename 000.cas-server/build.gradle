@@ -106,6 +106,8 @@ configurations {
                     }
                 }
             }
+
+            force 'org.antlr:antlr4-runtime:4.7.2'
         }
         exclude(group: "cglib", module: "cglib")
         exclude(group: "cglib", module: "cglib-full")
@@ -171,8 +173,19 @@ dependencies {
      * plugin via the CAS bom.
      **/
     implementation "org.apereo.cas:cas-server-support-json-service-registry"
+//    implementation "org.apereo.cas:cas-server-support-jpa-service-registry"
+//    implementation "org.apereo.cas:cas-server-support-jpa-hibernate"
     implementation "org.apereo.cas:cas-server-support-jdbc"
     implementation 'org.postgresql:postgresql'
+
+
+
+    runtimeOnly("org.antlr:antlr4-runtime") {
+        version {
+            strictly '4.7.2'
+        }
+    }
+
 
     testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
