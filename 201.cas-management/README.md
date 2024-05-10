@@ -1,3 +1,4 @@
+# IMPORTANT NOTE<br/>******************************************************<br/>This repository is always automatically generated from the CAS Initializr. Do NOT submit pull requests here as the change-set will be overwritten on the next sync.To learn more, please visit the [CAS documentation](https://apereo.github.io/cas).<br/>******************************************************<br/>
 Apereo CAS WAR Overlay Template
 =====================================
 
@@ -5,8 +6,8 @@ WAR Overlay Type: `cas-management-overlay`
 
 # Versions
    
-- CAS Management `6.6.4`
-- CAS Server `6.6.0`
+- CAS Management `7.0.0-SNAPSHOT`
+- CAS Server `7.0.0`
 
                      
 # Build
@@ -75,9 +76,8 @@ On a successful deployment via the following methods, the server will be availab
 
 Run the server web application as an executable WAR. Note that running an executable WAR requires CAS to use an embedded container such as Apache Tomcat, Jetty, etc.
 
+The current servlet container is specified as `-tomcat`.
 
-No servlet container is specified for the current build. Examine your `gradle.properties` file
-and modify the `appServer` property to point to the appropriate container of choice.
 ```bash
 java -jar build/libs/cas-management.war
 ```
@@ -122,3 +122,39 @@ Run the CAS web application as a *standalone* executable WAR:
 
 Deploy the binary web application file in `build/libs` after a successful build to a servlet container of choice.
 
+# Docker
+
+The following strategies outline how to build and deploy CAS Docker images.
+
+## Jib
+
+The overlay embraces the [Jib Gradle Plugin](https://github.com/GoogleContainerTools/jib) to provide easy-to-use out-of-the-box tooling for building CAS docker images. Jib is an open-source Java containerizer from Google that lets Java developers build containers using the tools they know. It is a container image builder that handles all the steps of packaging your application into a container image. It does not require you to write a Dockerfile or have Docker installed, and it is directly integrated into the overlay.
+
+```bash
+# Running this task requires that you have Docker installed and running.
+./gradlew build jibDockerBuild
+```
+
+## Dockerfile
+
+You can also use the Docker tooling and the provided `Dockerfile` to build and run.
+There are dedicated Gradle tasks available to build and push Docker images using the supplied `DockerFile`:
+
+```bash
+./gradlew build casBuildDockerImage
+```
+
+Once ready, you may also push the images:
+
+```bash
+./gradlew casPushDockerImage
+```
+
+If credentials (username+password) are required for pull and push operations, they may be specified
+using system properties via `-DdockerUsername=...` and `-DdockerPassword=...`.
+
+A `docker-compose.yml` is also provided to orchestrate the build:
+
+```bash  
+docker-compose build
+```
