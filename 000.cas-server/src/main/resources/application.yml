@@ -1,0 +1,43 @@
+# Application properties that need to be
+# embedded within the web application can be included here
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/cas
+    username: postgres
+    password: 123456
+    dialect: org.hibernate.dialect.PostgreSQLDialect
+
+cas:
+  server:
+    name: http://cas.demo.com:8080/cas
+  tgc:
+    # 关闭强制使用https，否则无法实现统一认证（或使用https）
+    secure: false
+    # secure设置为false，必须同时设置sameSite策略为Lax或Strict，否则cookie还是不会保存
+    same-site-policy: Lax
+  authn:
+    # 关闭静态配置的账号
+    accept:
+      enabled: false
+    jdbc:
+      query[0]:
+        driver-class: ${spring.datasource.driver-class-name}
+        url: ${spring.datasource.url}
+        user: ${spring.datasource.username}
+        password: ${spring.datasource.password}
+        dialect: ${spring.datasource.dialect}
+        sql: select * from basic_user where username = ?
+        field-password: password
+        password-encoder:
+          encoding-algorithm:
+          type: NONE
+  service-registry:
+    jpa:
+      enabled: true
+      driver-class: ${spring.datasource.driver-class-name}
+      url: ${spring.datasource.url}
+      user: ${spring.datasource.username}
+      password: ${spring.datasource.password}
+      dialect: ${spring.datasource.dialect}

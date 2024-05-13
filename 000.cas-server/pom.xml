@@ -4,11 +4,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd ">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.dqv5.cas</groupId>
-    <artifactId>cas-server-simple</artifactId>
+    <artifactId>cas-server</artifactId>
     <version>1.0.0</version>
     <packaging>war</packaging>
-    <name>cas-server-simple</name>
+    <name>cas-server</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.apereo.cas</groupId>
+            <artifactId>cas-server-support-json-service-registry</artifactId>
+            <version>${cas.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apereo.cas</groupId>
+            <artifactId>cas-server-support-jdbc</artifactId>
+            <version>${cas.version}</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
