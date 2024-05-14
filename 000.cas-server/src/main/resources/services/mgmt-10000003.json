@@ -1,0 +1,15 @@
+{
+  "@class": "org.apereo.cas.services.CasRegisteredService",
+  "serviceId": "^(http|https)://mgmt.demo.com.*",
+  "name": "mgmt",
+  "id": 10000003,
+  "description": "The Cas Management Webapp.",
+  "evaluationOrder": 103,
+  "properties" : {
+    "@class" : "java.util.HashMap",
+    "wildcardedServiceDefinition" : {
+      "@class" : "org.apereo.cas.services.DefaultRegisteredServiceProperty",
+      "values" : [ "java.util.HashSet", [ "true" ] ]
+    }
+  }
+}

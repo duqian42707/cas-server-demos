@@ -34,6 +34,8 @@ cas:
           encoding-algorithm:
           type: NONE
   service-registry:
+    core:
+      init-from-json: true
     jpa:
       enabled: true
       driver-class: ${spring.datasource.driver-class-name}
