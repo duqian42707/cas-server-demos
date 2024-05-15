@@ -13,10 +13,13 @@
         <cas-mgmt.version>7.0.0-SNAPSHOT</cas-mgmt.version>
         <cas.version>7.0.0</cas.version>
         <springboot.version>3.2.1</springboot.version>
+        <!-- app.server could be -jetty, -undertow, -tomcat, or blank if you plan to provide appserver -->
+        <app.server>-tomcat</app.server>
+
         <mainClassName>org.springframework.boot.loader.WarLauncher</mainClassName>
         <isExecutable>false</isExecutable>
         <manifestFileToUse>
-            ${project.build.directory}/war/work/org.apereo.cas/cas-management-webapp/META-INF/MANIFEST.MF
+            ${project.build.directory}/war/work/org.apereo.cas/cas-mgmt-webapp${app.server}/META-INF/MANIFEST.MF
         </manifestFileToUse>
 
         <maven.compiler.source>21</maven.compiler.source>
@@ -28,36 +31,36 @@
         <!--  CAS Management  -->
         <dependency>
             <groupId>org.apereo.cas</groupId>
-            <artifactId>cas-management-webapp</artifactId>
+            <artifactId>cas-mgmt-webapp${app.server}</artifactId>
             <version>${cas-mgmt.version}</version>
             <type>war</type>
         </dependency>
         <!--  CAS 通过jpa管理服务  -->
-        <dependency>
-            <groupId>org.apereo.cas</groupId>
-            <artifactId>cas-server-support-jpa-service-registry</artifactId>
-            <version>${cas.version}</version>
-            <!--  避免jar包冲突  -->
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework.data</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apereo.cas</groupId>
-            <artifactId>cas-server-support-jdbc</artifactId>
-            <version>${cas.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apereo.cas</groupId>-->
+<!--            <artifactId>cas-server-support-jpa-service-registry</artifactId>-->
+<!--            <version>${cas.version}</version>-->
+<!--            &lt;!&ndash;  避免jar包冲突  &ndash;&gt;-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework</groupId>-->
+<!--                    <artifactId>*</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework.boot</groupId>-->
+<!--                    <artifactId>*</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework.data</groupId>-->
+<!--                    <artifactId>*</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apereo.cas</groupId>-->
+<!--            <artifactId>cas-server-support-jdbc</artifactId>-->
+<!--            <version>${cas.version}</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -104,7 +107,7 @@
                     <overlays>
                         <overlay>
                             <groupId>org.apereo.cas</groupId>
-                            <artifactId>cas-management-webapp</artifactId>
+                            <artifactId>cas-mgmt-webapp${app.server}</artifactId>
                         </overlay>
                     </overlays>
                 </configuration>
