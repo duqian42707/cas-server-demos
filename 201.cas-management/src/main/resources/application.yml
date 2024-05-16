@@ -6,11 +6,30 @@ server:
     context-path: /cas-management
   ssl:
     enabled: false
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/cas
+    username: postgres
+    password: 123456
+    dialect: org.hibernate.dialect.PostgreSQLDialect
+
 cas:
   server:
     name: http://cas.demo.com:8080
     prefix: ${cas.server.name}/cas
+  service-registry:
+    core:
+      init-from-json: true
+    jpa:
+      enabled: true
+      driver-class: ${spring.datasource.driver-class-name}
+      url: ${spring.datasource.url}
+      user: ${spring.datasource.username}
+      password: ${spring.datasource.password}
+      dialect: ${spring.datasource.dialect}
 mgmt:
   server-name: https://mgmt.demo.com:18443
   user-properties-file: classpath:users.json
   admin-roles[0]: ROLE_ADMIN
+  cas-sso: false

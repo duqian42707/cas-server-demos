@@ -1,5 +1,5 @@
 {
-  "admin": {
+  "user": {
     "@class": "org.apereo.cas.mgmt.authz.json.UserAuthorizationDefinition",
     "roles": [
       "ROLE_ADMIN"
