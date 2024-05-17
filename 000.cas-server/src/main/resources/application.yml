@@ -17,10 +17,12 @@ cas:
     secure: false
     # secure设置为false，必须同时设置sameSite策略为Lax或Strict，否则cookie还是不会保存
     same-site-policy: Lax
+  # 可配置多种认证方式，只要有一种能认证成功即可
   authn:
     # 关闭静态配置的账号
     accept:
       enabled: false
+    # 启用jdbc方式进行认证
     jdbc:
       query[0]:
         driver-class: ${spring.datasource.driver-class-name}
