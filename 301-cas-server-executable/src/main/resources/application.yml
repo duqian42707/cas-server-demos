@@ -10,15 +10,11 @@ spring:
 
 management:
   endpoint:
-    health:
-      enabled: true
-    serviceregistry:
-      enabled: true
-    metrics:
-      enabled: true
+    casFeatures:
+      access: UNRESTRICTED
     registeredServices:
-      enabled: true
+      access: UNRESTRICTED
   endpoints:
     web:
       exposure:
-        include: health,serviceregistry,metrics,registeredServices
+        include: casFeatures,registeredServices
