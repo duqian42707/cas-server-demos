@@ -169,13 +169,14 @@ dependencies {
      **/
     implementation "org.apereo.cas:cas-server-core-api-configuration-model"
     implementation "org.apereo.cas:cas-server-webapp-init"
+    implementation "org.apereo.cas:cas-server-support-palantir"
 
     if (appServer == '-tomcat') {
         implementation "org.apereo.cas:cas-server-webapp-init-tomcat"
     }
-    
+
     developmentOnly "org.springframework.boot:spring-boot-devtools:${project.springBootVersion}"
-        
+
     /**
      * CAS dependencies and modules may be listed here.
      *
@@ -185,7 +186,7 @@ dependencies {
      **/
 
 
-    
+
     testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 

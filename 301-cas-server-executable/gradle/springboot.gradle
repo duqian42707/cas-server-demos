@@ -3,7 +3,7 @@ apply plugin: "java"
 sourceSets {
     bootRunSources {
         resources {
-            srcDirs new File("//etc/cas/templates/"), new File("${project.getProjectDir()}/src/main/resources/")
+            srcDirs new File("D:/etc/cas/templates/"), new File("${project.getProjectDir()}/src/main/resources/")
         }
     }
 }
@@ -11,7 +11,7 @@ sourceSets {
 configurations {
     bootRunConfig {
         extendsFrom compileClasspath
-        
+
         exclude(group: "org.springframework.boot", module: "spring-boot-starter-logging")
         exclude(group: "ch.qos.logback", module: "logback-core")
         exclude(group: "ch.qos.logback", module: "logback-classic")
@@ -79,7 +79,7 @@ bootRun {
 
 springBoot {
     mainClass = "org.apereo.cas.web.CasWebApplication"
-    
+
 }
 
 

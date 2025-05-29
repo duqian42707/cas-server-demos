@@ -1,3 +1,24 @@
 # Application properties that need to be
 # embedded within the web application can be included here
 
+spring:
+  security:
+    user:
+      name: user
+      password: 123123
+      roles: admin,ADMIN
+
+management:
+  endpoint:
+    health:
+      enabled: true
+    serviceregistry:
+      enabled: true
+    metrics:
+      enabled: true
+    registeredServices:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,serviceregistry,metrics,registeredServices
