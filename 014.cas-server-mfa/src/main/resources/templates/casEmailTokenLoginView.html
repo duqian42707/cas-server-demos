@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <title>Email Verification</title>
+</head>
+<body id="cas">
+<div layout:fragment="content">
+    <form method="post" th:action="@{/login}" th:object="${credential}">
+        <h2>Email Verification</h2>
+        <p>Enter the verification code that was sent to your email address.</p>
+        <label for="token">Verification Code</label>
+        <input id="token" type="text" th:field="*{token}" autocomplete="one-time-code"/>
+        <input type="submit" name="submit" value="Verify"/>
+    </form>
+</div>
+</body>
+</html>

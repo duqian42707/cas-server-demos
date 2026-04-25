@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.dqv5.cas.mfa.email.config.EmailMfaConfiguration,\
+com.dqv5.cas.mfa.email.config.EmailMfaWebflowConfiguration
