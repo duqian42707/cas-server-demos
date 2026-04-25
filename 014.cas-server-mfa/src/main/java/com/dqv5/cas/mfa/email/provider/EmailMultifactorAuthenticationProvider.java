@@ -1,17 +1,15 @@
 package com.dqv5.cas.mfa.email.provider;
 
 import org.apereo.cas.authentication.AbstractMultifactorAuthenticationProvider;
+import org.apereo.cas.authentication.DefaultMultifactorAuthenticationProviderBypass;
+import org.apereo.cas.configuration.model.support.mfa.MultifactorAuthenticationProviderBypassProperties;
 
 public class EmailMultifactorAuthenticationProvider extends AbstractMultifactorAuthenticationProvider {
-    private final String id;
-
     public EmailMultifactorAuthenticationProvider(final String id) {
-        this.id = id;
-    }
-
-    @Override
-    public String getId() {
-        return id;
+        setId(id);
+        setBypassEvaluator(new DefaultMultifactorAuthenticationProviderBypass(
+            new MultifactorAuthenticationProviderBypassProperties()
+        ));
     }
 
     @Override
