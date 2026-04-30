@@ -9,6 +9,7 @@ CAS 5.3.x 服务端示例项目集合
 - [最基本的功能](./001.cas-server-simple)
 - [使用jdbc进行认证](./002.cas-server-jdbc-auth)
 - [使用rest接口进行认证](./003.cas-server-rest-auth)
+- [使用ldap进行认证](./015.cas-server-ldap-auth)
 - [自定义认证](./004.cas-server-custom-auth)
 - [自定义认证表单](./005.cas-server-custom-credential)
 - [客户端服务管理](./006.cas-server-service-manage)
@@ -19,6 +20,7 @@ CAS 5.3.x 服务端示例项目集合
 - [通过jpa进行service的管理](./011.cas-server-service-manage-jpa)
 - [对外提供Restful API](./012.cas-server-restful-api)
 - [使CAS实现自动登录](./013.cas-server-auto-login)
+- [多因素（MFA）认证](./014.cas-server-mfa)
 
 ### CAS客户端示例
 
